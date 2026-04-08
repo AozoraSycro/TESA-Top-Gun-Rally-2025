@@ -5,9 +5,7 @@
 <p align="left">
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/MATLAB-D97621?style=for-the-badge&logo=mathworks&logoColor=white" alt="MATLAB">
-  <img src="https://img.shields.io/badge/YOLOv8-FF9D00?style=for-the-badge&logo=yolo&logoColor=white" alt="YOLOv8">
   <img src="https://img.shields.io/badge/Simulink-0076A8?style=for-the-badge&logo=mathworks&logoColor=white" alt="Simulink">
-  <img src="https://img.shields.io/badge/REST_API-00ADD8?style=for-the-badge&logo=json&logoColor=white" alt="REST API">
 </p>
 
 
@@ -17,87 +15,8 @@ This is a comprehensive drone detection, tracking, and control system developed 
 2. **TESA Offense (MATLAB)** - Quadrotor Control & Trajectory Planning System
 
 ---
-
-## 🛡️ PART 1: TESA Defense - Drone Detection & Tracking System
-
-### Overview
-An advanced computer vision and machine learning system for detecting, tracking, and estimating GPS coordinates of small drones from video footage. This system integrates YOLO object detection with ML-based GPS coordinate estimation.
-
-### ✨ Key Features
-- **🎯 Accurate Drone Detection**: Powered by YOLO v8 model (`best_6.1.pt`)
-- **📍 Real-time GPS Estimation**: Converts bounding box values to GPS coordinates (Latitude/Longitude/Altitude)
-- **👁️ Smart Tracking System**: Tracks up to 2 drones simultaneously with stable IDs and flight path visualization
-- **🎬 Video Output**: Generates `.mp4` output with timestamps, detected data, and flight paths
-- **⚡ GPU/CPU Auto-switching**: Utilizes CUDA for fast processing when available
-- **🔗 TESA API Integration**: Real-time data transmission via REST API
-
-### 📁 Project Structure
-```text
-Tesa_Defense/
-├── 4_gps_testing.py              # Main tracking script
-├── tesa_api.py                   # API integration module
-├── best_6.1.pt                   # YOLO v8 model weights
-├── improved_gps_model.pkl        # GPS coordinate prediction model
-├── scaler_features.pkl           # Feature scaling for ML model
-├── scaler_targets.pkl            # Target scaling for ML model
-├── README.md                     # Defense system documentation
-└── Demo/                         # Demo videos and screenshots
-```
-
-### 🛠️ Technology Stack
-- Python 3.x
-
-- OpenCV - Video processing
-
-- YOLOv8 - Object detection
-
-- scikit-learn - Machine learning models
-
-- PyTorch - Deep learning framework
-
-- Requests - API communication
-
-### ⚙️ Usage & Installation
-**Prerequisites & Dependencies**
-```text
-python -m pip install --upgrade pip
-```
-```text
-pip install opencv-python numpy ultralytics joblib scikit-learn torch requests
-```
-
-### Configuration
-**Set up environment variables for API access:**
-```text
-set TESA_API_BASE_URL=[https://tesa-api.crma.dev/api](https://tesa-api.crma.dev/api)
-```
-```text
-set TESA_CAMERA_ID=your_camera_id
-```
-```text
-set TESA_CAMERA_TOKEN=your_authentication_token
-```
-
-### Running the System
-1. **Set video source in 4_gps_testing.py:**
-   ```text
-   video_path = r'C:\path\to\your\video.mp4'
-    ```
-2. **Run the drone tracker:**
-  ```text
-  python 4_gps_testing.py
-  ```
-3. **Watch real-time detection:**
-  - Press Q or ESC to exit live preview
-  - System will process the entire video and generate output
-4. **Results:**
-    - Output video saved in same directory with detection overlays
-    - GPS coordinates logged with timestamps
-    - Flight paths drawn on output video
-
----
    
-## 🚁 PART 2: TESA Offense - Quadrotor Control System
+## TESA Offense - Quadrotor Control System
 **Overview**
 A MATLAB/Simulink-based system for simulating quadrotor drone dynamics, trajectory planning, and control. Implements geometric tracking control with PD controllers for autonomous flight.
 
