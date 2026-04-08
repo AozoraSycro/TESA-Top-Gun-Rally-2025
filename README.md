@@ -1,0 +1,344 @@
+# 🛡️ TESA Top Gun Rally 2025: Integrated Drone System
+> **A dual-architecture engineering marvel integrating AI-driven computer vision with high-fidelity quadrotor flight control.**
+> โปรเจกต์พัฒนาระบบอากาศยานไร้คนขับแบบบูรณาการ ประกอบด้วยระบบตรวจจับเป้าหมายด้วย AI และระบบควบคุมการบินอัตโนมัติ สำหรับการแข่งขัน TESA Top Gun Rally 2025
+
+<p align="left">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/MATLAB-D97621?style=for-the-badge&logo=mathworks&logoColor=white" alt="MATLAB">
+  <img src="https://img.shields.io/badge/YOLOv8-FF9D00?style=for-the-badge&logo=yolo&logoColor=white" alt="YOLOv8">
+  <img src="https://img.shields.io/badge/Simulink-0076A8?style=for-the-badge&logo=mathworks&logoColor=white" alt="Simulink">
+  <img src="https://img.shields.io/badge/REST_API-00ADD8?style=for-the-badge&logo=json&logoColor=white" alt="REST API">
+</p>
+
+
+## 📋 Project Overview
+This is a comprehensive drone detection, tracking, and control system developed for the **TESA Top Gun Rally 2025** competition. The project is divided into two main subsystems:
+1. **TESA Defense (Python)** - Drone Detection & GPS Tracking System
+2. **TESA Offense (MATLAB)** - Quadrotor Control & Trajectory Planning System
+
+---
+
+## 🛡️ PART 1: TESA Defense - Drone Detection & Tracking System
+
+### Overview
+An advanced computer vision and machine learning system for detecting, tracking, and estimating GPS coordinates of small drones from video footage. This system integrates YOLO object detection with ML-based GPS coordinate estimation.
+
+### ✨ Key Features
+- **🎯 Accurate Drone Detection**: Powered by YOLO v8 model (`best_6.1.pt`)
+- **📍 Real-time GPS Estimation**: Converts bounding box values to GPS coordinates (Latitude/Longitude/Altitude)
+- **👁️ Smart Tracking System**: Tracks up to 2 drones simultaneously with stable IDs and flight path visualization
+- **🎬 Video Output**: Generates `.mp4` output with timestamps, detected data, and flight paths
+- **⚡ GPU/CPU Auto-switching**: Utilizes CUDA for fast processing when available
+- **🔗 TESA API Integration**: Real-time data transmission via REST API
+
+### 📁 Project Structure
+```text
+Tesa_Defense/
+├── 4_gps_testing.py              # Main tracking script
+├── tesa_api.py                   # API integration module
+├── best_6.1.pt                   # YOLO v8 model weights
+├── improved_gps_model.pkl        # GPS coordinate prediction model
+├── scaler_features.pkl           # Feature scaling for ML model
+├── scaler_targets.pkl            # Target scaling for ML model
+├── README.md                     # Defense system documentation
+└── Demo/                         # Demo videos and screenshots
+```
+
+### 🛠️ Technology Stack
+- Python 3.x
+
+- OpenCV - Video processing
+
+- YOLOv8 - Object detection
+
+- scikit-learn - Machine learning models
+
+- PyTorch - Deep learning framework
+
+- Requests - API communication
+
+### ⚙️ Usage & Installation
+**Prerequisites & Dependencies**
+```text
+python -m pip install --upgrade pip
+```
+```text
+pip install opencv-python numpy ultralytics joblib scikit-learn torch requests
+```
+
+### Configuration
+**Set up environment variables for API access:**
+```text
+set TESA_API_BASE_URL=[https://tesa-api.crma.dev/api](https://tesa-api.crma.dev/api)
+```
+```text
+set TESA_CAMERA_ID=your_camera_id
+```
+```text
+set TESA_CAMERA_TOKEN=your_authentication_token
+```
+
+### Running the System
+1. **Set video source in 4_gps_testing.py:**
+   ```text
+   video_path = r'C:\path\to\your\video.mp4'
+    ```
+2. **Run the drone tracker:**
+  ```text
+  python 4_gps_testing.py
+  ```
+3. **Watch real-time detection:**
+  - Press Q or ESC to exit live preview
+  - System will process the entire video and generate output
+4. **Results:**
+    - Output video saved in same directory with detection overlays
+    - GPS coordinates logged with timestamps
+    - Flight paths drawn on output video
+
+---
+   
+## 🚁 PART 2: TESA Offense - Quadrotor Control System
+**Overview**
+A MATLAB/Simulink-based system for simulating quadrotor drone dynamics, trajectory planning, and control. Implements geometric tracking control with PD controllers for autonomous flight.
+
+**✨ Key Features**
+- 🔧 Rotor Dynamics Simulation: Complete quadrotor physical model
+
+- 📈 Trajectory Planning: Minimum-snap trajectory generation through multiple waypoints
+
+- 🎮 Control System:
+
+    - Geometric Tracking Control (GTC)
+    - PD Controllers for attitude and thrust control
+    - Electronic Speed Controller (ESC) integration
+
+-⚡ ODE-based Simulation: First-order and higher-order dynamics
+
+- 📊 Real-time Visualization: Position and attitude tracking plots
+
+## 📁 Project Structure
+```text
+Tesa_Offense/
+├── Quadrotor_Drone_PD_Control.m           # Main control algorithm
+├── quadrotorsmodel2.slx                   # Simulink model (main)
+├── TESA_Workspace1.1.txt                  # Configuration notes
+├── license.txt                            # Project license
+│
+├── Offense-Day1-Problem/                  # Day 1 Challenge
+│   ├── TESA_Workspace1.m                  # Main workspace setup
+│   ├── TESA_Workspace2.m                  # Alternative configurations
+│   ├── quadrotorsmodel1.slx               # Model variant 1
+│   ├── quadrotorsmodel2.slx               # Model variant 2
+│   ├── quadrotorsmodel3.slx               # Model variant 3
+│   ├── min_snap_Coef.m                    # Trajectory coefficient generator
+│   ├── getTrajectory.m                    # Trajectory interpolation
+│   ├── hatmap.m                           # Attitude mapping
+│   ├── veemap.m                           # Vector field mapping
+│   ├── custom_neg_sqrt.m                  # Custom math function
+│   └── quadrotorsmodel2_grt_rtw/          # Generated code
+│
+├── Offense-Day2-Problem/                  # Day 2 Challenge
+│   ├── TESA_Workspace2.m                  # Day 2 setup
+│   ├── quadrotorsmodel2.slx               # Updated model
+│   ├── min_snap_Coef.m                    # Trajectory generation
+│   ├── getTrajectory.m                    # Trajectory functions
+│   ├── hatmap.m                           # Hat mapping operators
+│   ├── veemap.m                           # Vector field operators
+│   └── data.mat                           # Stored data/results
+│
+└── matlab_pre_camp/                       # Pre-competition training
+    ├── pre_camp.slx                       # Training model
+    ├── pre_camp_workspace.m               # Training workspace
+    └── hatmap.m                           # Vector operators
+```
+## 🛠️ Technology Stack
+- **MATLAB R2020b+** (Simulink)
+- **Simulink Control System Toolbox**
+- **Symbolic Math Toolbox**
+
+## 🧠 System Architecture & Physics
+
+**Control Architecture**
+End-to-end signal flow from trajectory generation to physical execution:
+```Waypoints``` ➔ ```Trajectory Planning``` ➔ ```Geometric Tracking``` ➔ ```Attitude Controller``` ➔ ```Motor Commands``` ➔ ```ESC``` ➔ ```Rotor Thrust``` ➔ ```Dynamics``` ➔ ```State Feedback```
+
+**Quadrotor Dynamics**
+- Rotor Model: Individual motor dynamics with thrust proportional to rotational speed squared.
+- Attitude Dynamics: Euler angle kinematics and angular rate dynamics.
+- Position Dynamics: Linear motion equations under gravitational force.
+- State Feedback: Complete state (position, velocity, attitude, angular rate) available for continuous control.
+
+## 🧮 Key Control Equations
+1. **Geometric Tracking Control (GTC)**
+```
+Track = [-k_e · e - k_ė · ė]
+```
+Where:
+
+- ```e = Position error```
+
+- ```ė = Velocity error```
+
+- ```k_e, k_ė = Control feedback gains```
+
+2. **Rotor Dynamics & Thrust**
+```
+L · f = L · τ + ω · (ω × I · ω) + (ld · m · g_earth)
+```
+**Where:**
+
+- ```L = Attitude error correction matrix```
+
+- ```f = Collective thrust```
+
+- ```τ = Torque command```
+
+- ```ω = Angular velocity```
+
+3. **Minimum-Snap Trajectory**
+- Generates exceptionally smooth 8th-order polynomial trajectories.
+
+- Ensures zero acceleration at all designated waypoints.
+
+- Optimizes for minimal derivative (snap) to reduce mechanical wear.
+
+## ⚙️ Running the Offense System
+
+**Basic Setup**
+1. Open MATLAB.
+
+2. Navigate to the ```Offense-Day1-Problem``` or ```Offense-Day2-Problem``` directory.
+
+3. Run the workspace setup script in the command window:
+```
+TESA_Workspace1
+% or
+TESA_Workspace2
+```
+
+**Simulation in Simulink**
+1. Open the model: ```quadrotorsmodel2.slx```
+
+2. Set your desired waypoints in the workspace script:
+waypoints = [0 0   0   0;      % x  y   z  yaw
+0 0 -10   1;
+10 10 -10  1;
+10 30 -20  1;
+30 40 -30  1];
+
+timepoints = [0 5 10 15 20];   % time at each waypoint (seconds)
+
+
+3. Run the simulation and visualize the plotting results.
+
+**Trajectory Planning (MATLAB Command)**
+% Generate minimum-snap coefficients based on inputs
+trajectory_coef = min_snap_Coef(waypoints, timepoints);
+
+% Query trajectory at a specific time (t)
+[position, velocity, acceleration] = getTrajectory(trajectory_coef, t);
+
+
+## 📂 Key Files Description
+
+| File | Purpose |
+|------|---------|
+| `min_snap_Coef.m` | Computes minimum-snap polynomial coefficients. |
+| `getTrajectory.m` | Evaluates the trajectory at any given time. |
+| `hatmap.m` | Converts a vector to a skew-symmetric matrix. |
+| `veemap.m` | Extracts a vector from a skew-symmetric matrix. |
+| `quadrotorsmodel2.slx` | The main Simulink simulation model. |
+| `Quadrotor_Drone_PD_Control.m` | Core PD controller algorithm implementation. |
+
+---
+
+## 📊 Integration & Data Flow
+
+The system operates in a continuous, closed-loop data pipeline between the offense control and defense perception:
+
+```mermaid
+graph TD;
+    A[TESA Offense: Control System] -->|Position & Trajectory Generated| B(Sends Target Waypoints)
+    B --> C[Real-world Drone / Simulation]
+    C -->|Drone / Live Video Feed| D[TESA Defense: YOLO Detection]
+    D -->|Detects Actual Position| E(Calculates Error)
+    E -->|Sends Data Payload via API| F[(TESA API Server)]
+```
+## 🚀 Getting Started
+**For Defense (Python)**
+
+1. Clone the repository to your local machine.
+
+2. Install Python dependencies:
+```
+pip install -r requirements.txt
+```
+3. Download the model weights (```best_6.1.pt```) if needed.
+
+4. Set the environment variables for API authentication.
+
+5. Run the detection script:
+
+```python 4_gps_testing.py```
+**For Offense (MATLAB)**
+
+1. Open MATLAB.
+
+2. Ensure Simulink and Control System Toolbox are installed.
+
+3. Navigate to the ```Offense``` directory.
+
+4. Run the workspace setup script.
+
+5. Open and run the Simulink model.
+
+## 📝 Requirements & Dependencies
+**Defense (Python Environment)**
+
+- Python 3.8+
+
+- opencv-python
+
+- numpy
+
+- ultralytics (YOLOv8)
+
+- scikit-learn
+
+- torch
+
+- requests
+
+- joblib
+
+**Offense (MATLAB Environment)**
+
+- MATLAB R2020b or newer
+
+- Simulink
+
+- Control System Toolbox
+
+- Symbolic Math Toolbox
+
+## 📄 License
+See the ```license.txt``` file in the ```Tesa_Offense``` directory for detailed license information.
+
+## 👥 Project Contributors
+Nontapat Boonsub (Oak) & TESA Top Gun Rally 2025 Team
+
+## 📞 Support & Resources
+TESA API Documentation: https://tesa-api.crma.dev
+
+MATLAB Documentation: https://www.mathworks.com/help/matlab/
+
+YOLO Documentation: https://docs.ultralytics.com/
+
+## 📌 Important Notes
+## ⚠️ MATLAB Licenses: Ensure your MATLAB licenses are active and valid before running simulations.
+
+## ⚡ Hardware Acceleration: GPU support (CUDA) is highly recommended for faster video processing in the Defense system.
+
+## 📂 File Paths: All video paths should be absolute or relative from the workspace root directory.
+
+## 🔐 Security: API tokens must be stored securely in environment variables, never hardcoded.
