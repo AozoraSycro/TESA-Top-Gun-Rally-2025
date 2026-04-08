@@ -184,21 +184,7 @@ graph TD;
     E -->|Sends Data Payload via API| F[(TESA API Server)]
 ```
 ## 🚀 Getting Started
-**For Defense (Python)**
 
-1. Clone the repository to your local machine.
-
-2. Install Python dependencies:
-```
-pip install -r requirements.txt
-```
-3. Download the model weights (```best_6.1.pt```) if needed.
-
-4. Set the environment variables for API authentication.
-
-5. Run the detection script:
-
-```python 4_gps_testing.py```
 **For Offense (MATLAB)**
 
 1. Open MATLAB.
@@ -212,23 +198,6 @@ pip install -r requirements.txt
 5. Open and run the Simulink model.
 
 ## 📝 Requirements & Dependencies
-**Defense (Python Environment)**
-
-- Python 3.8+
-
-- opencv-python
-
-- numpy
-
-- ultralytics (YOLOv8)
-
-- scikit-learn
-
-- torch
-
-- requests
-
-- joblib
 
 **Offense (MATLAB Environment)**
 
@@ -250,8 +219,6 @@ Nontapat Boonsub (Oak) & TESA Top Gun Rally 2025 Team
 TESA API Documentation: https://tesa-api.crma.dev
 
 MATLAB Documentation: https://www.mathworks.com/help/matlab/
-
-YOLO Documentation: https://docs.ultralytics.com/
 
 ## 📌 Important Notes
 ## ⚠️ MATLAB Licenses: Ensure your MATLAB licenses are active and valid before running simulations.
